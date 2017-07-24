@@ -224,7 +224,9 @@ class HTTPClient(object):
         url = "https://www.bitstamp.net/api/user_transactions/"
         jsonResponse = self._post(url, {})
         if transactionType is not None:
-            jsonUserTransactions = [jsonUserTransaction for jsonUserTransaction in jsonResponse if jsonUserTransaction["type"] == transactionType]
+            jsonUserTransactions = filter(
+                lambda jsonUserTransaction: jsonUserTransaction["type"] == transactionType, jsonResponse
+            )
         else:
             jsonUserTransactions = jsonResponse
         return [UserTransaction(jsonUserTransaction) for jsonUserTransaction in jsonUserTransactions]

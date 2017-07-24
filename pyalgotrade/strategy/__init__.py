@@ -30,7 +30,7 @@ from pyalgotrade import logger
 from pyalgotrade.barfeed import resampled
 
 
-class BaseStrategy(object, metaclass=abc.ABCMeta):
+class BaseStrategy(object):
     """Base class for strategies.
 
     :param barFeed: The bar feed that will supply the bars.
@@ -41,6 +41,8 @@ class BaseStrategy(object, metaclass=abc.ABCMeta):
     .. note::
         This is a base class and should not be used directly.
     """
+
+    __metaclass__ = abc.ABCMeta
 
     LOGGER_NAME = "strategy"
 

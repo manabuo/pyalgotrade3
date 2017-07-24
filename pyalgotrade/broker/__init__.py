@@ -28,8 +28,11 @@ from pyalgotrade import dispatchprio
 # Why not use decimal.Decimal instead ?
 # 1: I'd have to expose this to users. They'd have to deal with decimal.Decimal and it'll break existing users.
 # 2: numpy arrays built using decimal.Decimal instances have dtype=object.
-class InstrumentTraits(object, metaclass=abc.ABCMeta):
+class InstrumentTraits(object):
 
+    __metaclass__ = abc.ABCMeta
+
+    # Return the floating point value number rounded.
     @abc.abstractmethod
     def roundQuantity(self, quantity):
         raise NotImplementedError()
@@ -485,13 +488,15 @@ class OrderEvent(object):
 
 ######################################################################
 # Base broker class
-class Broker(observer.Subject, metaclass=abc.ABCMeta):
+class Broker(observer.Subject):
     """Base class for brokers.
 
     .. note::
 
         This is a base class and should not be used directly.
     """
+
+    __metaclass__ = abc.ABCMeta
 
     def __init__(self):
         super(Broker, self).__init__()

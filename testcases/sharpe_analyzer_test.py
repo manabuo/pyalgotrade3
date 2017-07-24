@@ -20,8 +20,8 @@
 
 import datetime
 
-from . import common
-from . import strategy_test
+import common
+import strategy_test
 
 from pyalgotrade.barfeed import yahoofeed
 from pyalgotrade.barfeed import ninjatraderfeed

@@ -18,7 +18,7 @@
 .. moduleauthor:: Gabriel Martin Becedillas Ruiz <gabriel.becedillas@gmail.com>
 """
 
-from . import common
+import common
 
 from pyalgotrade import dataseries
 from pyalgotrade.technical import cumret

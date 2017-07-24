@@ -31,23 +31,23 @@ class FastDictReader(object):
         self.__fieldNames = fieldnames
         self.reader = csv.reader(f, dialect, *args, **kwargs)
         if self.__fieldNames is None:
-            self.__fieldNames = next(self.reader)
+            self.__fieldNames = self.reader.next()
         self.__dict = {}
 
     def __iter__(self):
         return self
 
-    def __next__(self):
+    def next(self):
         # Skip empty rows.
-        row = next(self.reader)
+        row = self.reader.next()
         while row == []:
-            row = next(self.reader)
+            row = self.reader.next()
 
         # Check that the row has the right number of columns.
         assert(len(self.__fieldNames) == len(row))
 
         # Copy the row values into the dict.
-        for i in range(len(self.__fieldNames)):
+        for i in xrange(len(self.__fieldNames)):
             self.__dict[self.__fieldNames[i]] = row[i]
 
         return self.__dict

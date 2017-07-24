@@ -21,8 +21,8 @@
 import datetime
 import os
 
-from . import common
-from . import feed_test
+import common
+import feed_test
 
 from pyalgotrade.feed import csvfeed
 from pyalgotrade import dispatcher

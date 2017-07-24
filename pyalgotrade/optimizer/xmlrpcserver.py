@@ -18,7 +18,7 @@
 .. moduleauthor:: Gabriel Martin Becedillas Ruiz <gabriel.becedillas@gmail.com>
 """
 
-import xmlrpc.server
+import SimpleXMLRPCServer
 import pickle
 import threading
 import time
@@ -58,15 +58,15 @@ class Job(object):
 
 
 # Restrict to a particular path.
-class RequestHandler(xmlrpc.server.SimpleXMLRPCRequestHandler):
+class RequestHandler(SimpleXMLRPCServer.SimpleXMLRPCRequestHandler):
     rpc_paths = ('/PyAlgoTradeRPC',)
 
 
-class Server(xmlrpc.server.SimpleXMLRPCServer):
+class Server(SimpleXMLRPCServer.SimpleXMLRPCServer):
     defaultBatchSize = 200
 
     def __init__(self, paramSource, resultSinc, barFeed, address, port, autoStop=True):
-        xmlrpc.server.SimpleXMLRPCServer.__init__(self, (address, port), requestHandler=RequestHandler, logRequests=False, allow_none=True)
+        SimpleXMLRPCServer.SimpleXMLRPCServer.__init__(self, (address, port), requestHandler=RequestHandler, logRequests=False, allow_none=True)
         # super(Server, self).__init__((address, port), requestHandler=RequestHandler, logRequests=False, allow_none=True)
 
         self.__paramSource = paramSource
@@ -100,7 +100,7 @@ class Server(xmlrpc.server.SimpleXMLRPCServer):
 
         # Get the next set of parameters.
         params = self.__paramSource.getNext(self.defaultBatchSize)
-        params = [p.args for p in params]
+        params = map(lambda p: p.args, params)
 
         # Map the active job
         if len(params):

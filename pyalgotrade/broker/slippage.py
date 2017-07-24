@@ -21,12 +21,14 @@
 import abc
 
 
-class SlippageModel(object, metaclass=abc.ABCMeta):
+class SlippageModel(object):
     """Base class for slippage models.
 
     .. note::
         This is a base class and should not be used directly.
     """
+
+    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def calculatePrice(self, order, price, quantity, bar, volumeUsed):

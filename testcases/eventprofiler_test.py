@@ -20,7 +20,7 @@
 
 import datetime
 
-from . import common
+import common
 
 from pyalgotrade import eventprofiler
 from pyalgotrade.barfeed import yahoofeed

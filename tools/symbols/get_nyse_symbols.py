@@ -23,7 +23,7 @@ sys.path.append("../..")
 
 import pyalgotrade.logger
 import tempfile
-import urllib.request, urllib.error, urllib.parse
+import urllib2
 import csv
 import symbolsxml
 
@@ -35,7 +35,7 @@ def main():
     try:
         logger.info("Getting NYSE symbols from http://www.nasdaq.com/")
         url = "http://www.nasdaq.com/screening/companies-by-name.aspx?exchange=NYSE&render=download"
-        buff = urllib.request.urlopen(url).read()
+        buff = urllib2.urlopen(url).read()
 
         tmpFile = tempfile.NamedTemporaryFile()
         tmpFile.write(buff)
@@ -47,7 +47,7 @@ def main():
 
         logger.info("Writing nyse.xml")
         symbolsXML.write("nyse.xml")
-    except Exception as e:
+    except Exception, e:
         logger.error(str(e))
 
 if __name__ == "__main__":

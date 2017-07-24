@@ -21,7 +21,7 @@
 import sys
 import os
 
-from . import common
+import common
 
 from pyalgotrade.barfeed import yahoofeed
 from pyalgotrade import plotter

@@ -36,12 +36,14 @@ def get_checked_max_len(maxLen):
 
 # It is important to inherit object to get __getitem__ to work properly.
 # Check http://code.activestate.com/lists/python-list/621258/
-class DataSeries(object, metaclass=abc.ABCMeta):
+class DataSeries(object):
     """Base class for data series.
 
     .. note::
         This is a base class and should not be used directly.
     """
+
+    __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod
     def __len__(self):
@@ -52,7 +54,7 @@ class DataSeries(object, metaclass=abc.ABCMeta):
         """Returns the value at a given position/slice. It raises IndexError if the position is invalid,
         or TypeError if the key type is invalid."""
         if isinstance(key, slice):
-            return [self[i] for i in range(*key.indices(len(self)))]
+            return [self[i] for i in xrange(*key.indices(len(self)))]
         elif isinstance(key, int):
             if key < 0:
                 key += len(self)
